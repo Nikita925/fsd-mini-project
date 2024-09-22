@@ -8,6 +8,8 @@ import FootballPage from './footballpage'
 import GymPage from './gympage'
 import BookForPlay from './bookforplay';
 import JoinCoaching from './joincoaching';
+import About from './about';
+import Contact from './contact';
 import './App.css'; // Import the CSS file for animations
 
 function App() {
@@ -95,6 +97,8 @@ function App() {
                         <Route path="/gym" element={<GymPage />} />
                         <Route path="/book-for-play" element={<BookForPlay />} />
                         <Route path="/join-coaching" element={<JoinCoaching />} />
+                        <Route path="/about" element={<About />} />
+                        <Route path="/contact" element={<Contact />} />          
                         <Route
                             path="/"
                             element={
