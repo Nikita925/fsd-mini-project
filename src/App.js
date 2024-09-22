@@ -8,9 +8,13 @@ import FootballPage from './footballpage'
 import GymPage from './gympage'
 import BookForPlay from './bookforplay';
 import JoinCoaching from './joincoaching';
-import About from './about';
-import Contact from './contact';
+import About from './about'
+import Contact from './contact'
+
+
+
 import './App.css'; // Import the CSS file for animations
+
 
 function App() {
     return (
@@ -47,13 +51,7 @@ function App() {
                                         transition: 'color 0.3s ease-in-out' 
                                     }}>Home</Link>
                                 </li>
-                                <li style={{ marginLeft: '20px' }}>
-                                    <Link to="/dashboard" style={{ 
-                                        color: '#fff', 
-                                        textDecoration: 'none', 
-                                        transition: 'color 0.3s ease-in-out' 
-                                    }}>Dashboard</Link>
-                                </li>
+                                
                                 <li style={{ marginLeft: '20px' }}>
                                     <Link to="/contact" style={{ 
                                         color: '#fff', 
@@ -98,7 +96,7 @@ function App() {
                         <Route path="/book-for-play" element={<BookForPlay />} />
                         <Route path="/join-coaching" element={<JoinCoaching />} />
                         <Route path="/about" element={<About />} />
-                        <Route path="/contact" element={<Contact />} />          
+                        <Route path="/contact" element={<Contact />} />
                         <Route
                             path="/"
                             element={
@@ -242,120 +240,108 @@ function App() {
 
                                     {/* Coaches Section */}
                                     <section id="coaches" style={{
-                                        padding: '60px 20px',
-                                        textAlign: 'center',
-                                        backgroundColor: '#444',
-                                        color: 'white',
-                                        transition: 'background-color 0.3s ease-in-out'
-                                    }}>
-                                        <h2 style={{ 
-                                            fontSize: '2.5rem', 
-                                            marginBottom: '40px',
-                                            transition: 'transform 0.3s ease-in-out'
-                                        }}>Meet Our Coaches</h2>
-                                        <div style={{
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            flexWrap: 'wrap',
-                                        }}>
-                                            <div style={{
-                                                width: '23%',
-                                                margin: '1%',
-                                                padding: '20px',
-                                                backgroundColor: '#555',
-                                                borderRadius: '15px',
-                                                transition: 'transform 0.3s ease-in-out',
-                                                boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
-                                                textAlign: 'center'
-                                            }}>
-                                                <img src="coach1.jpg" alt="Cricket Coach" style={{ 
-                                                    width: '100%', 
-                                                    borderRadius: '50%', 
-                                                    marginBottom: '15px', 
-                                                    transition: 'transform 0.3s ease-in-out' 
-                                                }} />
-                                                <h3 style={{ 
-                                                    fontSize: '1.5rem', 
-                                                    color: '#007BFF', 
-                                                    marginBottom: '10px',
-                                                    transition: 'color 0.3s ease-in-out'
-                                                }}>John Doe</h3>
-                                                <p style={{ fontSize: '1rem', color: '#ccc' }}>Cricket Coach</p>
-                                            </div>
-                                            <div style={{
-                                                width: '23%',
-                                                margin: '1%',
-                                                padding: '20px',
-                                                backgroundColor: '#555',
-                                                borderRadius: '15px',
-                                                transition: 'transform 0.3s ease-in-out',
-                                                boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
-                                                textAlign: 'center'
-                                            }}>
-                                                <img src="coach2.jpg" alt="Badminton Coach" style={{ 
-                                                    width: '100%', 
-                                                    borderRadius: '50%', 
-                                                    marginBottom: '15px', 
-                                                    transition: 'transform 0.3s ease-in-out' 
-                                                }} />
-                                                <h3 style={{ 
-                                                    fontSize: '1.5rem', 
-                                                    color: '#007BFF', 
-                                                    marginBottom: '10px',
-                                                    transition: 'color 0.3s ease-in-out'
-                                                }}>Jane Smith</h3>
-                                                <p style={{ fontSize: '1rem', color: '#ccc' }}>Badminton Coach</p>
-                                            </div>
-                                            <div style={{
-                                                width: '23%',
-                                                margin: '1%',
-                                                padding: '20px',
-                                                backgroundColor: '#555',
-                                                borderRadius: '15px',
-                                                transition: 'transform 0.3s ease-in-out',
-                                                boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
-                                                textAlign: 'center'
-                                            }}>
-                                                <img src="coach3.jpg" alt="Football Coach" style={{ 
-                                                    width: '100%', 
-                                                    borderRadius: '50%', 
-                                                    marginBottom: '15px', 
-                                                    transition: 'transform 0.3s ease-in-out' 
-                                                }} />
-                                                <h3 style={{ 
-                                                    fontSize: '1.5rem', 
-                                                    color: '#007BFF', 
-                                                    marginBottom: '10px',
-                                                    transition: 'color 0.3s ease-in-out'
-                                                }}>Michael Lee</h3>
-                                                <p style={{ fontSize: '1rem', color: '#ccc' }}>Football Coach</p>
-                                            </div>
-                                            <div style={{
-                                                width: '23%',
-                                                margin: '1%',
-                                                padding: '20px',
-                                                backgroundColor: '#555',
-                                                borderRadius: '15px',
-                                                transition: 'transform 0.3s ease-in-out',
-                                                boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
-                                                textAlign: 'center'
-                                            }}>
-                                                <img src="coach4.jpg" alt="Gym Trainer" style={{ 
-                                                    width: '100%', 
-                                                    borderRadius: '50%', 
-                                                    marginBottom: '15px', 
-                                                    transition: 'transform 0.3s ease-in-out' 
-                                                }} />
-                                                <h3 style={{ 
-                                                    fontSize: '1.5rem', 
-                                                    color: '#007BFF', 
-                                                    marginBottom: '10px',
-                                                    transition: 'color 0.3s ease-in-out'
-                                                }}>Emily Clark</h3>
-                                                <p style={{ fontSize: '1rem', color: '#ccc' }}>Gym Trainer</p>
-                                            </div>
-                                        </div>
-                                    </section>
+    padding: '60px 20px',
+    textAlign: 'center',
+    backgroundColor: '#444',
+    color: 'white',
+    transition: 'background-color 0.3s ease-in-out'
+}}>
+    <h2 style={{ 
+        fontSize: '2.5rem', 
+        marginBottom: '40px',
+        transition: 'transform 0.3s ease-in-out'
+    }}>Meet Our Coaches</h2>
+    <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+    }}>
+        {/* Coach Card */}
+        {[
+            {
+                name: "John Doe",
+                sport: "Cricket Coach",
+                degree: "MSc Sports Science",
+                expertise: "Batting and Fielding",
+                studentsQualified: 50,
+                rating: 4.8,
+                img: "coach1.jpg"
+            },
+            {
+                name: "Jane Smith",
+                sport: "Badminton Coach",
+                degree: "BSc Physical Education",
+                expertise: "Smash and Footwork",
+                studentsQualified: 45,
+                rating: 4.7,
+                img: "coach2.jpg"
+            },
+            {
+                name: "Michael Lee",
+                sport: "Football Coach",
+                degree: "BSc Sports Coaching",
+                expertise: "Striker Positioning and Defense",
+                studentsQualified: 60,
+                rating: 4.9,
+                img: "coach3.jpg"
+            },
+            {
+                name: "Emily Clark",
+                sport: "Gym Trainer",
+                degree: "MSc Fitness Management",
+                expertise: "Strength Training and Nutrition",
+                studentsQualified: 40,
+                rating: 4.6,
+                img: "coach4.jpg"
+            }
+        ].map((coach, index) => (
+            <div key={index} style={{
+                width: '23%',
+                margin: '1%',
+                padding: '20px',
+                backgroundColor: '#555',
+                borderRadius: '15px',
+                transition: 'transform 0.3s ease-in-out',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                textAlign: 'center'
+            }}>
+                <img src={coach.img} alt={coach.sport} style={{ 
+                    width: '100%', 
+                    borderRadius: '50%', 
+                    marginBottom: '15px', 
+                    transition: 'transform 0.3s ease-in-out' 
+                }} />
+                <button 
+                    style={{ 
+                        fontSize: '1.5rem', 
+                        color: '#007BFF', 
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        cursor: 'pointer',
+                        marginBottom: '10px',
+                        transition: 'color 0.3s ease-in-out'
+                    }}
+                    onClick={() => {
+                        const infoBox = document.getElementById(`info-${index}`);
+                        infoBox.style.display = infoBox.style.display === 'none' ? 'block' : 'none';
+                    }}
+                >
+                    {coach.name}
+                </button>
+                <p style={{ fontSize: '1rem', color: '#ccc' }}>{coach.sport}</p>
+
+                {/* Hidden Coach Info */}
+                <div id={`info-${index}`} style={{ display: 'none', marginTop: '10px', textAlign: 'left', color: '#eee' }}>
+                    <p><strong>Degree:</strong> {coach.degree}</p>
+                    <p><strong>Expertise:</strong> {coach.expertise}</p>
+                    <p><strong>Students Qualified:</strong> {coach.studentsQualified}</p>
+                    <p><strong>Rating:</strong> {coach.rating} / 5</p>
+                </div>
+            </div>
+        ))}
+    </div>
+</section>
+
 
                                     {/* Membership Section */}
                                     <section id="membership" style={{
