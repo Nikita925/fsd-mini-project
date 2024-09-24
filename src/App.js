@@ -109,19 +109,20 @@ function App() {
                                 <>
                                     {/* Hero Section */}
                                     <section id="home" style={{
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '900px',
-    width: '1480px',
-    textAlign: 'center',
-    padding: '20px',
-    margin: 0,
-    transition: 'background-color 0.3s ease-in-out',
-    backgroundImage: `url(${Wowsports})`,  // Ensure this is properly imported
-    backgroundSize: 'cover', 
-    backgroundPosition: 'center', 
-    backgroundRepeat: 'no-repeat'
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        height: '100vh',  // Adjust to take full viewport height
+                                        width: '100%',  // Adjust to take full width
+                                        textAlign: 'center',
+                                        padding: '20px',
+                                        margin: 0,
+                                        transition: 'background-color 0.3s ease-in-out',
+                                        backgroundImage: `url(${Wowsports})`,  // Ensure this is properly imported
+                                        backgroundSize: 'cover', 
+                                        backgroundPosition: 'center', 
+                                        backgroundRepeat: 'no-repeat',
+
 }}>
     <div style={{
         maxWidth: '80%',
