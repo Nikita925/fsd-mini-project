@@ -8,10 +8,13 @@ import FootballPage from './footballpage'
 import GymPage from './gympage'
 import BookForPlay from './bookforplay';
 import JoinCoaching from './joincoaching';
-import About from './about'
-import Contact from './contact'
-
-
+import About from './about';
+import Contact from './contact';
+import PrivacyPolicy from './privacypolicy';
+import Termsofservice from './terms-of-service';
+import Cancellationpolicy from './cancellation-policy';
+import AllSportsImage from './allsports.png'; // Adjust the path relative to the component file
+import Wowsports from './wowsports.png';
 
 import './App.css'; // Import the CSS file for animations
 
@@ -85,7 +88,7 @@ function App() {
                     </div>
                 </header>
 
-                <main style={{ padding: '20px' }}>
+                <main style={{ padding: '0px' }}>
                     <Routes>
                         <Route path="/coach-login" element={<CoachLogin />} />
                         <Route path="/coach-login-home" element={<CoachLoginHome />} />
@@ -97,79 +100,91 @@ function App() {
                         <Route path="/join-coaching" element={<JoinCoaching />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/contact" element={<Contact />} />
+                        <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+                        <Route path="/terms-of-service" element={<Termsofservice />} />
+                        <Route path="/cancellation-policy" element={<Cancellationpolicy />} />
                         <Route
                             path="/"
                             element={
                                 <>
                                     {/* Hero Section */}
                                     <section id="home" style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        height: '100vh',
-                                        backgroundColor: '#6c757d',
-                                        color: 'white',
-                                        textAlign: 'center',
-                                        padding: '20px',
-                                        margin: 0,
-                                        transition: 'background-color 0.3s ease-in-out'
-                                    }}>
-                                        <div style={{
-                                            maxWidth: '80%',
-                                            margin: '0 auto'
-                                        }}>
-                                            <h1 style={{ 
-                                                fontSize: '3rem', 
-                                                marginBottom: '20px',
-                                                transition: 'transform 0.3s ease-in-out'
-                                            }}>Achieve Your Best with WOW Sports and Fitness</h1>
-                                            <p style={{ 
-                                                fontSize: '1.5rem', 
-                                                marginBottom: '40px',
-                                                transition: 'opacity 0.3s ease-in-out'
-                                            }}>Join us in pushing your limits across multiple sports disciplines!</p>
-                                            <Link to="#membership" style={{
-                                                display: 'inline-block',
-                                                padding: '15px 30px',
-                                                backgroundColor: '#fff',
-                                                color: '#6c757d',
-                                                border: 'none',
-                                                borderRadius: '30px',
-                                                fontSize: '1rem',
-                                                cursor: 'pointer',
-                                                textDecoration: 'none',
-                                                transition: 'background-color 0.3s ease-in-out, transform 0.3s ease-in-out',
-                                                marginRight: '10px'
-                                            }}
-                                            onMouseEnter={(e) => e.target.style.backgroundColor = '#e0e0e0'}
-                                            onMouseLeave={(e) => e.target.style.backgroundColor = '#fff'}>
-                                                Join Now
-                                            </Link>
-                                            <Link to="#about" style={{
-                                                display: 'inline-block',
-                                                padding: '15px 30px',
-                                                backgroundColor: 'transparent',
-                                                border: '2px solid #fff',
-                                                color: '#fff',
-                                                borderRadius: '30px',
-                                                fontSize: '1rem',
-                                                cursor: 'pointer',
-                                                transition: 'background-color 0.3s ease-in-out, transform 0.3s ease-in-out',
-                                                marginLeft: '10px',
-                                                textDecoration: 'none'
-                                            }}
-                                            onMouseEnter={(e) => e.target.style.backgroundColor = '#fff'}
-                                            onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}>
-                                                Learn More
-                                            </Link>
-                                        </div>
-                                    </section>
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '900px',
+    width: '1480px',
+    textAlign: 'center',
+    padding: '20px',
+    margin: 0,
+    transition: 'background-color 0.3s ease-in-out',
+    backgroundImage: `url(${Wowsports})`,  // Ensure this is properly imported
+    backgroundSize: 'cover', 
+    backgroundPosition: 'center', 
+    backgroundRepeat: 'no-repeat'
+}}>
+    <div style={{
+        maxWidth: '80%',
+        margin: '0 auto'
+    }}>
+        <h1 style={{ 
+            fontSize: '3rem', 
+            marginBottom: '20px',
+            transition: 'transform 0.3s ease-in-out',
+            color: 'white'  // Set text color to white
+        }}>
+            Achieve Your Best with WOW Sports and Fitness
+        </h1>
+        <p style={{ 
+            fontSize: '1.5rem', 
+            marginBottom: '40px',
+            transition: 'opacity 0.3s ease-in-out',
+            color: 'white'  // Set text color to white
+        }}>
+            Join us in pushing your limits across multiple sports disciplines!
+        </p>
+        <Link to="#membership" style={{
+            display: 'inline-block',
+            padding: '15px 30px',
+            backgroundColor: '#fff',
+            color: '#6c757d',
+            border: 'none',
+            borderRadius: '30px',
+            fontSize: '1rem',
+            cursor: 'pointer',
+            textDecoration: 'none',
+            transition: 'background-color 0.3s ease-in-out, transform 0.3s ease-in-out',
+            marginRight: '10px'
+        }}
+        onMouseEnter={(e) => e.target.style.backgroundColor = '#e0e0e0'}
+        onMouseLeave={(e) => e.target.style.backgroundColor = '#fff'}>
+            Join Now
+        </Link>
+        <Link to="#about" style={{
+            display: 'inline-block',
+            padding: '15px 30px',
+            backgroundColor: 'transparent',
+            border: '2px solid #fff',
+            color: '#fff',
+            borderRadius: '30px',
+            fontSize: '1rem',
+            cursor: 'pointer',
+            transition: 'background-color 0.3s ease-in-out, transform 0.3s ease-in-out',
+            marginLeft: '10px',
+            textDecoration: 'none'
+        }}
+        onMouseEnter={(e) => e.target.style.backgroundColor = '#fff'}
+        onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}>
+            Learn More
+        </Link>
+    </div>
+</section>
 
                                     {/* About Us Section */}
                                     <section id="about" style={{
                                         padding: '60px 20px',
                                         textAlign: 'center',
-                                        backgroundColor: '#007BFF',
+                                        backgroundColor: '#2F4F4F',
                                         color: 'white',
                                         transition: 'background-color 0.3s ease-in-out'
                                     }}>
@@ -195,54 +210,60 @@ function App() {
                                     {/* Sports Section */}
 
                                     <section id="sports" style={{
-                                        padding: '60px 20px',
-                                        textAlign: 'center',
-                                        transition: 'background-color 0.3s ease-in-out'
-                                    }}>
-                                        <h2 style={{ 
-                                            fontSize: '2.5rem', 
-                                            marginBottom: '40px',
-                                            transition: 'transform 0.3s ease-in-out'
-                                        }}>Our Sports</h2>
-                                        <div style={{
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            flexWrap: 'wrap',
-                                            gap: '1%',
-                                            animation: 'fadeIn 1s ease-in-out'
-                                        }}>
-                                            <div className="sports-card">
-                                                <Link to="/cricket" style={{ textDecoration: 'none' }}>
-                                                <h3 style={{ fontSize: '1.5rem', color: '#007BFF', marginBottom: '15px' }}>Cricket</h3>
-                                                <p style={{ fontSize: '1rem', color: '#555' }}>Professional cricket training and practice nets.</p>
-                                            </Link>
-                                            </div>
-                                            <div className="sports-card">
-                                                <Link to="/badminton" style={{ textDecoration: 'none' }}>
-                                                <h3 style={{ fontSize: '1.5rem', color: '#007BFF', marginBottom: '15px' }}>Badminton</h3>
-                                                <p style={{ fontSize: '1rem', color: '#555' }}>Indoor badminton courts with expert coaches.</p>
-                                            </Link>
-                                            </div>
-                                            <div className="sports-card">
-                                                <Link to="/football" style={{ textDecoration: 'none' }}>
-                                                <h3 style={{ fontSize: '1.5rem', color: '#007BFF', marginBottom: '15px' }}>Football</h3>
-                                                <p style={{ fontSize: '1rem', color: '#555' }}>Football coaching and matches for all levels.</p>
-                                            </Link>
-                                            </div>
-                                            <div className="sports-card">
-                                                <Link to="/gym" style={{ textDecoration: 'none' }}>
-                                                <h3 style={{ fontSize: '1.5rem', color: '#007BFF', marginBottom: '15px' }}>Gym</h3>
-                                                <p style={{ fontSize: '1rem', color: '#555' }}>Fully equipped gym with personal trainers.</p>
-                                            </Link>
-                                            </div>
-                                        </div>
-                                    </section>
+    padding: '60px 20px',
+    textAlign: 'center',
+    transition: 'background-color 0.3s ease-in-out',
+    backgroundImage: `url(${AllSportsImage})`,  // Use backticks for the template literal
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat'
+}}>
+    <h2 style={{ 
+        fontSize: '2.5rem', 
+        marginBottom: '40px',
+        transition: 'transform 0.3s ease-in-out'
+    }}>Our Sports</h2>
+    <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        gap: '1%',
+        animation: 'fadeIn 1s ease-in-out'
+    }}>
+        <div className="sports-card">
+            <Link to="/cricket" style={{ textDecoration: 'none' }}>
+                <h3 style={{ fontSize: '1.5rem', color: '#007BFF', marginBottom: '15px' }}>Cricket</h3>
+                <p style={{ fontSize: '1rem', color: '#555' }}>Professional cricket training and practice nets.</p>
+            </Link>
+        </div>
+        <div className="sports-card">
+            <Link to="/badminton" style={{ textDecoration: 'none' }}>
+                <h3 style={{ fontSize: '1.5rem', color: '#007BFF', marginBottom: '15px' }}>Badminton</h3>
+                <p style={{ fontSize: '1rem', color: '#555' }}>Indoor badminton courts with expert coaches.</p>
+            </Link>
+        </div>
+        <div className="sports-card">
+            <Link to="/football" style={{ textDecoration: 'none' }}>
+                <h3 style={{ fontSize: '1.5rem', color: '#007BFF', marginBottom: '15px' }}>Football</h3>
+                <p style={{ fontSize: '1rem', color: '#555' }}>Football coaching and matches for all levels.</p>
+            </Link>
+        </div>
+        <div className="sports-card">
+            <Link to="/gym" style={{ textDecoration: 'none' }}>
+                <h3 style={{ fontSize: '1.5rem', color: '#007BFF', marginBottom: '15px' }}>Gym</h3>
+                <p style={{ fontSize: '1rem', color: '#555' }}>Fully equipped gym with personal trainers.</p>
+            </Link>
+        </div>
+    </div>
+</section>
+
+
 
                                     {/* Coaches Section */}
                                     <section id="coaches" style={{
     padding: '60px 20px',
     textAlign: 'center',
-    backgroundColor: '#444',
+    backgroundColor:'#0D1B2A',
     color: 'white',
     transition: 'background-color 0.3s ease-in-out'
 }}>
@@ -347,7 +368,7 @@ function App() {
                                     <section id="membership" style={{
                                         padding: '60px 20px',
                                         textAlign: 'center',
-                                        backgroundColor: '#007BFF',
+                                        backgroundColor: '#2C3539',
                                         color: 'white',
                                         transition: 'background-color 0.3s ease-in-out'
                                     }}>
