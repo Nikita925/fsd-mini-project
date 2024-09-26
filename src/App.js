@@ -16,7 +16,10 @@ import Cancellationpolicy from './cancellation-policy';
 import AllSportsImage from './allsports.png'; // Adjust the path relative to the component file
 import Wowsports from './wowsports.png';
 
+
 import './App.css'; // Import the CSS file for animations
+
+
 
 
 function App() {
@@ -103,6 +106,7 @@ function App() {
                         <Route path="/privacypolicy" element={<PrivacyPolicy />} />
                         <Route path="/terms-of-service" element={<Termsofservice />} />
                         <Route path="/cancellation-policy" element={<Cancellationpolicy />} />
+                        
                         <Route
                             path="/"
                             element={
