@@ -69,6 +69,9 @@ function CoachLoginHome() {
                                 <Link to="/coach-login-home" style={{ color: '#fff', textDecoration: 'none' }}>Home</Link>
                             </li>
                             <li style={{ marginLeft: '20px' }}>
+                                <Link to="/coach-login-home" style={{ color: '#fff', textDecoration: 'none' }}>Add Students</Link>
+                            </li>
+                            <li style={{ marginLeft: '20px' }}>
                                 <Link to="/view-students" style={{ color: '#fff', textDecoration: 'none' }}>View Students</Link>
                             </li>
                             <li style={{ marginLeft: '20px' }}>
