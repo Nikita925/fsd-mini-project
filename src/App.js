@@ -15,7 +15,9 @@ import Termsofservice from './terms-of-service';
 import Cancellationpolicy from './cancellation-policy';
 import AllSportsImage from './allsports.png'; // Adjust the path relative to the component file
 import Wowsports from './wowsports.png';
-
+import Addstudents from './addstudents';
+import Viewstudents from './viewstudents';
+import Markattendence from './markattendence';
 
 import './App.css'; // Import the CSS file for animations
 
@@ -106,6 +108,10 @@ function App() {
                         <Route path="/privacypolicy" element={<PrivacyPolicy />} />
                         <Route path="/terms-of-service" element={<Termsofservice />} />
                         <Route path="/cancellation-policy" element={<Cancellationpolicy />} />
+                        <Route path="/addstudents" element={<Addstudents />} />
+                        <Route path="/viewstudents" element={<Viewstudents />} />
+                        <Route path="/markattendence" element={<Markattendence />} />
+
                         
                         <Route
                             path="/"
