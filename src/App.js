@@ -18,6 +18,7 @@ import Wowsports from './wowsports.png';
 import Addstudents from './addstudents';
 import Viewstudents from './viewstudents';
 import Markattendence from './markattendence';
+import Markfees from './markfees';
 
 import './App.css'; // Import the CSS file for animations
 
@@ -111,7 +112,7 @@ function App() {
                         <Route path="/addstudents" element={<Addstudents />} />
                         <Route path="/viewstudents" element={<Viewstudents />} />
                         <Route path="/markattendence" element={<Markattendence />} />
-
+                        <Route path="/markfees" element={<Markfees />} />
                         
                         <Route
                             path="/"
@@ -154,7 +155,7 @@ function App() {
         }}>
             Join us in pushing your limits across multiple sports disciplines!
         </p>
-        <Link to="#membership" style={{
+        <Link to="/join-coaching" style={{
             display: 'inline-block',
             padding: '15px 30px',
             backgroundColor: '#fff',
@@ -171,7 +172,7 @@ function App() {
         onMouseLeave={(e) => e.target.style.backgroundColor = '#fff'}>
             Join Now
         </Link>
-        <Link to="#about" style={{
+        <Link to="/about" style={{
             display: 'inline-block',
             padding: '15px 30px',
             backgroundColor: 'transparent',

@@ -52,6 +52,9 @@ function CoachLoginHome() {
                                 <Link to="/markattendance" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Mark Attendance</Link>
                             </li>
                             <li style={{ marginLeft: '20px' }}>
+                                <Link to="/markfees" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Mark Fees</Link>
+                            </li>
+                            <li style={{ marginLeft: '20px' }}>
                                 <Link to="/" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Logout</Link>
                             </li>
                         </ul>

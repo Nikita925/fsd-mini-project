@@ -30,6 +30,9 @@ const ViewStudentsPage = () => {
                             <li style={{ marginLeft: '20px' }}>
                                 <Link to="/markattendence" style={{ color: '#fff', textDecoration: 'none' }}>Markattendence</Link>
                             </li>
+                            <li style={{ marginLeft: '20px' }}>
+                                <Link to="/markfees" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Mark Fees</Link>
+                            </li>
                             <li style={{ marginLeft: '20px', marginRight: '0' }}>
                                 <Link to="/" style={{ color: '#fff', textDecoration: 'none' }}>Logout</Link>
                             </li>
