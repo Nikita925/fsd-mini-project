@@ -3,12 +3,39 @@ import { Link } from 'react-router-dom';
 
 const ViewStudentsPage = () => {
     // Predefined student data
-    const [students] = useState([
+    const [students, setStudents] = useState([
         { name: 'Anshuman Joshi', phone: '123-456-7890', email: 'anshuman@example.com', gender: 'Male', experience: 'Beginner', batch: 'Morning', timeSlot: '9:00 AM - 10:00 AM' },
         { name: 'Nikita Kumari', phone: '234-567-8901', email: 'nikita@example.com', gender: 'Female', experience: 'Intermediate', batch: 'Evening', timeSlot: '5:00 PM - 6:00 PM' },
         { name: 'Ridham Sarodiya', phone: '345-678-9012', email: 'ridham@example.com', gender: 'Male', experience: 'Advanced', batch: 'Morning', timeSlot: '9:00 AM - 10:00 AM' },
         { name: 'Shravan Jhaveri', phone: '456-789-0123', email: 'shravan@example.com', gender: 'Male', experience: 'Beginner', batch: 'Evening', timeSlot: '5:00 PM - 6:00 PM' },
     ]);
+
+    // State for selected students
+    const [selectedStudents, setSelectedStudents] = useState([]);
+
+    // Handle checkbox selection
+    const handleCheckboxChange = (index) => {
+        if (selectedStudents.includes(index)) {
+            setSelectedStudents(selectedStudents.filter(i => i !== index));
+        } else {
+            setSelectedStudents([...selectedStudents, index]);
+        }
+    };
+
+    // Handle removing selected students
+    const handleRemoveSelected = () => {
+        const updatedStudents = students.filter((_, index) => !selectedStudents.includes(index));
+        setStudents(updatedStudents);
+        setSelectedStudents([]); // Clear the selection
+    };
+
+    // Handle dropping selected students for the month
+    const handleDropSelectedForMonth = () => {
+        selectedStudents.forEach(index => {
+            alert(`${students[index].name} is dropped for this month.`);
+        });
+        setSelectedStudents([]); // Clear the selection
+    };
 
     return (
         <div style={{ padding: '20px', backgroundColor: '#f4f4f4', minHeight: '100vh' }}>
@@ -47,6 +74,7 @@ const ViewStudentsPage = () => {
                 <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '10px' }}>
                     <thead>
                         <tr style={{ backgroundColor: '#f4f4f4' }}>
+                            <th style={{ border: '1px solid #ddd', padding: '8px' }}>Select</th>
                             <th style={{ border: '1px solid #ddd', padding: '8px' }}>Name</th>
                             <th style={{ border: '1px solid #ddd', padding: '8px' }}>Phone</th>
                             <th style={{ border: '1px solid #ddd', padding: '8px' }}>Email</th>
@@ -59,6 +87,13 @@ const ViewStudentsPage = () => {
                     <tbody>
                         {students.map((student, index) => (
                             <tr key={index}>
+                                <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                                    <input
+                                        type="checkbox"
+                                        onChange={() => handleCheckboxChange(index)}
+                                        checked={selectedStudents.includes(index)}
+                                    />
+                                </td>
                                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.name}</td>
                                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.phone}</td>
                                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.email}</td>
@@ -70,6 +105,30 @@ const ViewStudentsPage = () => {
                         ))}
                     </tbody>
                 </table>
+            </div>
+
+            {/* Action Buttons */}
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
+                <button
+                    style={{
+                        backgroundColor: '#e74c3c', color: '#fff', padding: '10px 15px', border: 'none',
+                        borderRadius: '5px', cursor: 'pointer'
+                    }}
+                    onClick={handleRemoveSelected}
+                    disabled={selectedStudents.length === 0}
+                >
+                    REMOVE STUDENT
+                </button>
+                <button
+                    style={{
+                        backgroundColor: '#2980b9', color: '#fff', padding: '10px 15px', border: 'none',
+                        borderRadius: '5px', cursor: 'pointer'
+                    }}
+                    onClick={handleDropSelectedForMonth}
+                    disabled={selectedStudents.length === 0}
+                >
+                    DROP FOR THIS MONTH
+                </button>
             </div>
         </div>
     );
