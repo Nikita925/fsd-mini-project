@@ -5,7 +5,7 @@ const cors = require('cors');
 const userRoutes = require('./routes/userRoutes'); // Import user routes
 
 // Load environment variables from .env file
-dotenv.config();
+dotenv.config({ path: '/home/anshumanjoshi/Documents/Project/mini-proj/.env' });
 
 // Initialize Express app
 const app = express();
@@ -14,19 +14,23 @@ const app = express();
 app.use(express.json()); // Parse incoming JSON requests
 app.use(cors()); // Enable CORS to allow frontend to communicate with backend
 
+const joinCoachingRoutes = require('./routes/joincoachingRoute');
+app.use('/api/applications', joinCoachingRoutes);
+
+
 // Debugging: Log the MongoDB URI to ensure it's being loaded correctly
 console.log('MONGO_URI:', process.env.MONGO_URI);
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+  // Removed deprecated options
 })
   .then(() => console.log('MongoDB connected successfully'))
   .catch((err) => {
     console.error('MongoDB connection error:', err.message);
     process.exit(1); // Exit the app if MongoDB connection fails
   });
+
 
 // Base route for testing if the server is up
 app.get('/', (req, res) => {
