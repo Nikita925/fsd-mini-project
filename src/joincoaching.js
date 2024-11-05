@@ -8,6 +8,7 @@ function JoinCoaching() {
         name: '',
         email: '',
         phone: '',
+        gender: 'Male', // Added gender with default value
         experience: 'Beginner',  // Default experience level
         timeSlot: 'Morning',  // Default time slot
         time: '6am-7am',  // Default time based on timeSlot
@@ -43,9 +44,35 @@ function JoinCoaching() {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        alert(`Coaching Application Submitted for ${formData.sport}`);
+        try {
+            const response = await fetch('http://localhost:5000/api/applications/apply', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+            const result = await response.json();
+            if (response.ok) {
+                alert(result.message);
+                setFormData({
+                    sport: 'Cricket',
+                    name: '',
+                    email: '',
+                    phone: '',
+                    gender: 'Male',
+                    experience: 'Beginner',
+                    timeSlot: 'Morning',
+                    time: '6am-7am',
+                    goals: ''
+                });
+            } else {
+                alert('Error: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Error submitting application:', error);
+            alert('Error submitting application');
+        }
     };
 
     const sectionStyle = {
