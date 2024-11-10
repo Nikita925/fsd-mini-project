@@ -14,8 +14,11 @@ const app = express();
 app.use(express.json()); // Parse incoming JSON requests
 app.use(cors()); // Enable CORS to allow frontend to communicate with backend
 
+//Connections
 const joinCoachingRoutes = require('./routes/joincoachingRoute');
 app.use('/api/applications', joinCoachingRoutes);
+const bookforplayRoutes = require('./routes/bookforplayRoute');
+app.use('/api/applications', bookforplayRoutes);
 
 
 // Debugging: Log the MongoDB URI to ensure it's being loaded correctly
@@ -23,7 +26,6 @@ console.log('MONGO_URI:', process.env.MONGO_URI);
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
-  // Removed deprecated options
 })
   .then(() => console.log('MongoDB connected successfully'))
   .catch((err) => {
