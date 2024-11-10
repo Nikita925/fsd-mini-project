@@ -172,22 +172,22 @@ function App() {
         onMouseLeave={(e) => e.target.style.backgroundColor = '#fff'}>
             Join Now
         </Link>
-        <Link to="/about" style={{
+        <Link to="/book-for-play" style={{
             display: 'inline-block',
             padding: '15px 30px',
             backgroundColor: 'transparent',
-            border: '2px solid #fff',
-            color: '#fff',
+            color: '#6c757d',
+            border: 'none',
             borderRadius: '30px',
             fontSize: '1rem',
             cursor: 'pointer',
+            textDecoration: 'none',
             transition: 'background-color 0.3s ease-in-out, transform 0.3s ease-in-out',
-            marginLeft: '10px',
-            textDecoration: 'none'
+            marginRight: '10px'
         }}
-        onMouseEnter={(e) => e.target.style.backgroundColor = '#fff'}
-        onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}>
-            Learn More
+        onMouseEnter={(e) => e.target.style.backgroundColor = '#e0e0e0'}
+        onMouseLeave={(e) => e.target.style.backgroundColor = '#fff'}>
+            Book Hourly
         </Link>
     </div>
 </section>

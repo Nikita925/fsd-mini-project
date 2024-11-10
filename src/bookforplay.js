@@ -43,9 +43,40 @@ function BookForPlay() {
         return `${formattedTime}:00 ${period}`;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        alert(`Booking Submitted for ${formData.sport} at ${formatTime(formData.time)}`);
+    
+        try {
+            const response = await fetch('http://localhost:5000/api/applications/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData), // Sending formData as JSON
+            });
+    
+            const data = await response.json();
+    
+            if (response.ok) {
+                alert(`Booking Submitted for ${formData.sport} at ${formatTime(formData.time)}`);
+                console.log('Booking data saved:', data);
+                setFormData({
+                    sport: 'Cricket',
+                    name: '',
+                    email: '',
+                    phone: '',
+                    date: '',
+                    time: 12,
+                    additionalInfo: '',
+                });
+            } else {
+                alert(`Failed to submit booking: ${data.message}`);
+                console.error('Server error:', data);
+            }
+        } catch (error) {
+            console.error('Network error:', error);
+            alert('There was an error submitting your booking. Please try again.');
+        }
     };
 
     const sectionStyle = {
@@ -145,8 +176,15 @@ function BookForPlay() {
                 </label>
                 <label style={labelStyle}>
                     Additional Info (optional):
-                    <textarea name="additionalInfo" value={formData.additionalInfo} onChange={handleChange} style={inputStyle}></textarea>
+                    <textarea
+                        name="additionalInfo"
+                        value={formData.additionalInfo}
+                        onChange={handleChange}
+                        style={inputStyle}
+                        maxLength={75}
+                    ></textarea>
                 </label>
+
                 <button
                     type="submit"
                     style={buttonStyle}
