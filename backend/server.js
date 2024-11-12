@@ -19,6 +19,10 @@ const joinCoachingRoutes = require('./routes/joincoachingRoute');
 app.use('/api/applications', joinCoachingRoutes);
 const bookforplayRoutes = require('./routes/bookforplayRoute');
 app.use('/api/applications', bookforplayRoutes);
+const addstudentsRoutes = require('./routes/addstudentsRoute');
+app.use('/api/applications', addstudentsRoutes);
+const viewstudentsRoutes = require('./routes/viewstudentsRoute');
+app.use('/api/applications', viewstudentsRoutes);
 
 
 // Debugging: Log the MongoDB URI to ensure it's being loaded correctly
