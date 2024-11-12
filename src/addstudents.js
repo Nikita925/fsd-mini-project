@@ -18,23 +18,42 @@ const AddStudentPage = () => {
         setNewStudent({ ...newStudent, [name]: value });
     };
 
-    const handleAddStudent = () => {
+    const handleAddStudent = async () => {
         if (newStudent.name.trim() !== '' && newStudent.phone.trim() !== '' && newStudent.email.trim() !== '') {
-            // Logic to add the new student would go here
-            alert(`Student ${newStudent.name} added!`); // Placeholder alert
-            setNewStudent({
-                name: '',
-                phone: '',
-                email: '',
-                gender: 'Male',
-                experience: 'Beginner',
-                batch: 'Morning',
-                timeSlot: '9:00 AM - 10:00 AM',
-            });
+            try {
+                console.log('Adding student with data:', newStudent);  // Debugging: check student data
+                const response = await fetch('http://localhost:5000/api/students/add', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newStudent),
+                });
+    
+                const result = await response.json();
+                console.log('API Response:', result);  // Debugging: check response from API
+    
+                if (response.ok) {
+                    alert(result.message);
+                    setNewStudent({
+                        name: '',
+                        phone: '',
+                        email: '',
+                        gender: 'Male',
+                        experience: 'Beginner',
+                        batch: 'Morning',
+                        timeSlot: '9:00 AM - 10:00 AM',
+                    });
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error adding student:', error);
+                alert('Error adding student');
+            }
         } else {
             alert('Please fill out all fields.');
         }
     };
+    
 
     return (
         <div style={{ padding: '20px', backgroundColor: '#f4f4f4', minHeight: '100vh' }}>
@@ -48,13 +67,13 @@ const AddStudentPage = () => {
                                 <Link to="/coach-login-home" style={{ color: '#fff', textDecoration: 'none' }}>Home</Link>
                             </li>
                             <li style={{ marginLeft: '20px' }}>
-                                <Link to="/addstudents" style={{ color: '#fff', textDecoration: 'none' }}>Addstudents</Link>
+                                <Link to="/addstudents" style={{ color: '#fff', textDecoration: 'none' }}>Add Students</Link>
                             </li>
                             <li style={{ marginLeft: '20px' }}>
-                                <Link to="/viewstudents" style={{ color: '#fff', textDecoration: 'none' }}>Viewstudents</Link>
+                                <Link to="/viewstudents" style={{ color: '#fff', textDecoration: 'none' }}>View Students</Link>
                             </li>
                             <li style={{ marginLeft: '20px' }}>
-                                <Link to="/markattendence" style={{ color: '#fff', textDecoration: 'none' }}>Markatteneance</Link>
+                                <Link to="/markattendance" style={{ color: '#fff', textDecoration: 'none' }}>Mark Attendance</Link>
                             </li>
                             <li style={{ marginLeft: '20px' }}>
                                 <Link to="/markfees" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Mark Fees</Link>
