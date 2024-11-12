@@ -8,7 +8,7 @@ const ViewStudentsPage = () => {
 
   // Fetch students data from the backend
   useEffect(() => {
-    axios.get('http://localhost:5000/students')
+    axios.get('http://localhost:5000/api/students')  // Corrected URL
       .then(response => {
         setStudents(response.data);  // Set the students state with fetched data
       })
@@ -28,44 +28,59 @@ const ViewStudentsPage = () => {
 
   // Handle removing selected students
   const handleRemoveSelected = () => {
-    const updatedStudents = students.filter((_, index) => !selectedStudents.includes(index));
-    setStudents(updatedStudents);
+    selectedStudents.forEach(index => {
+      const studentId = students[index]._id;  // Get the student ID
+      axios.delete(`http://localhost:5000/api/students/${studentId}`)
+        .then(() => {
+          alert(`${students[index].name} has been removed.`);
+          setStudents(students.filter((_, idx) => idx !== index));  // Update the list of students
+        })
+        .catch(error => {
+          console.error('Error removing student:', error);
+        });
+    });
     setSelectedStudents([]); // Clear the selection
   };
 
   // Handle dropping selected students for the month
   const handleDropSelectedForMonth = () => {
     selectedStudents.forEach(index => {
-      alert(`${students[index].name} is dropped for this month.`);
+      const studentId = students[index]._id;  // Get the student ID
+      axios.put(`http://localhost:5000/api/students/drop/${studentId}`)
+        .then(() => {
+          alert(`${students[index].name} has been dropped for the month.`);
+        })
+        .catch(error => {
+          console.error('Error dropping student for the month:', error);
+        });
     });
     setSelectedStudents([]); // Clear the selection
   };
 
   return (
-    <div style={{ padding: '20px', backgroundColor: '#f4f4f4', minHeight: '100vh' }}>
-      {/* Navigation */}
-      <header style={{ backgroundColor: '#333', color: '#fff', padding: '10px 0' }}>
-        <div style={{ width: '80%', margin: '0 auto', maxWidth: '1200px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ fontSize: '24px', fontWeight: 'bold' }}>Coach Dashboard</div>
+    <div style={{ padding: '20px', backgroundColor: '#f0f0f0', minHeight: '100vh', fontFamily: 'Arial, sans-serif' }}>
+      <header style={{ backgroundColor: '#2c3e50', color: '#fff', padding: '15px 0' }}>
+        <div style={{ width: '90%', margin: '0 auto', maxWidth: '1200px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ fontSize: '26px', fontWeight: 'bold' }}>Coach Dashboard</div>
           <nav>
             <ul style={{ listStyle: 'none', display: 'flex', margin: 0, padding: 0 }}>
               <li style={{ marginLeft: '20px' }}>
-                <Link to="/coach-login-home" style={{ color: '#fff', textDecoration: 'none' }}>Home</Link>
+                <Link to="/coach-login-home" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Home</Link>
               </li>
               <li style={{ marginLeft: '20px' }}>
-                <Link to="/addstudents" style={{ color: '#fff', textDecoration: 'none' }}>Add students</Link>
+                <Link to="/addstudents" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Add Students</Link>
               </li>
               <li style={{ marginLeft: '20px' }}>
-                <Link to="/viewstudents" style={{ color: '#fff', textDecoration: 'none' }}>View students</Link>
+                <Link to="/viewstudents" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>View Students</Link>
               </li>
               <li style={{ marginLeft: '20px' }}>
-                <Link to="/markattendance" style={{ color: '#fff', textDecoration: 'none' }}>Mark Attendance</Link>
+                <Link to="/markattendance" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Mark Attendance</Link>
               </li>
               <li style={{ marginLeft: '20px' }}>
                 <Link to="/markfees" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Mark Fees</Link>
               </li>
-              <li style={{ marginLeft: '20px', marginRight: '0' }}>
-                <Link to="/" style={{ color: '#fff', textDecoration: 'none' }}>Logout</Link>
+              <li style={{ marginLeft: '20px' }}>
+                <Link to="/" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Logout</Link>
               </li>
             </ul>
           </nav>

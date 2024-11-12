@@ -58,35 +58,34 @@ const MarkFees = () => {
     };
 
     return (
-        <div style={{ padding: '20px', backgroundColor: '#f4f4f4', minHeight: '100vh' }}>
-            {/* Navigation */}
-            <header style={{ backgroundColor: '#333', color: '#fff', padding: '10px 0' }}>
-                <div style={{ width: '80%', margin: '0 auto', maxWidth: '1200px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ fontSize: '24px', fontWeight: 'bold' }}>Coach Dashboard</div>
-                    <nav>
-                        <ul style={{ listStyle: 'none', display: 'flex', margin: 0, padding: 0 }}>
-                            <li style={{ marginLeft: '20px' }}>
-                                <Link to="/coach-login-home" style={{ color: '#fff', textDecoration: 'none' }}>Home</Link>
-                            </li>
-                            <li style={{ marginLeft: '20px' }}>
-                                <Link to="/addstudents" style={{ color: '#fff', textDecoration: 'none' }}>Add Students</Link>
-                            </li>
-                            <li style={{ marginLeft: '20px' }}>
-                                <Link to="/viewstudents" style={{ color: '#fff', textDecoration: 'none' }}>View Students</Link>
-                            </li>
-                            <li style={{ marginLeft: '20px' }}>
-                                <Link to="/markattendence" style={{ color: '#fff', textDecoration: 'none' }}>Mark Attendance</Link>
-                            </li>
-                            <li style={{ marginLeft: '20px' }}>
-                                <Link to="/markfees" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Mark Fees</Link>
-                            </li>
-                            <li style={{ marginLeft: '20px', marginRight: '0' }}>
-                                <Link to="/" style={{ color: '#fff', textDecoration: 'none' }}>Logout</Link>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </header>
+        <div style={{ padding: '20px', backgroundColor: '#f0f0f0', minHeight: '100vh', fontFamily: 'Arial, sans-serif' }}>
+        <header style={{ backgroundColor: '#2c3e50', color: '#fff', padding: '15px 0' }}>
+            <div style={{ width: '90%', margin: '0 auto', maxWidth: '1200px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ fontSize: '26px', fontWeight: 'bold' }}>Coach Dashboard</div>
+                <nav>
+                    <ul style={{ listStyle: 'none', display: 'flex', margin: 0, padding: 0 }}>
+                        <li style={{ marginLeft: '20px' }}>
+                            <Link to="/coach-login-home" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Home</Link>
+                        </li>
+                        <li style={{ marginLeft: '20px' }}>
+                            <Link to="/addstudents" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Add Students</Link>
+                        </li>
+                        <li style={{ marginLeft: '20px' }}>
+                            <Link to="/viewstudents" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>View Students</Link>
+                        </li>
+                        <li style={{ marginLeft: '20px' }}>
+                            <Link to="/markattendance" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Mark Attendance</Link>
+                        </li>
+                        <li style={{ marginLeft: '20px' }}>
+                            <Link to="/markfees" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Mark Fees</Link>
+                        </li>
+                        <li style={{ marginLeft: '20px' }}>
+                            <Link to="/" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Logout</Link>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
 
             <h2>Mark Fees</h2>
 

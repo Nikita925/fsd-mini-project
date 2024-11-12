@@ -20,9 +20,22 @@ const AddStudentPage = () => {
 
     const handleAddStudent = async () => {
         if (newStudent.name.trim() !== '' && newStudent.phone.trim() !== '' && newStudent.email.trim() !== '') {
+            // Optional: Add email and phone validation
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            const phoneRegex = /^[0-9]{10}$/; // Example for validating 10-digit phone number
+    
+            if (!emailRegex.test(newStudent.email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            if (!phoneRegex.test(newStudent.phone)) {
+                alert('Please enter a valid 10-digit phone number.');
+                return;
+            }
+    
             try {
                 console.log('Adding student with data:', newStudent);  // Debugging: check student data
-                const response = await fetch('http://localhost:5000/api/students/add', {
+                const response = await fetch('http://localhost:5000/api/applications/add', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(newStudent),
@@ -32,7 +45,7 @@ const AddStudentPage = () => {
                 console.log('API Response:', result);  // Debugging: check response from API
     
                 if (response.ok) {
-                    alert(result.message);
+                    alert('Student added successfully!');
                     setNewStudent({
                         name: '',
                         phone: '',
@@ -56,30 +69,29 @@ const AddStudentPage = () => {
     
 
     return (
-        <div style={{ padding: '20px', backgroundColor: '#f4f4f4', minHeight: '100vh' }}>
-            {/* Navigation */}
-            <header style={{ backgroundColor: '#333', color: '#fff', padding: '10px 0' }}>
-                <div style={{ width: '80%', margin: '0 auto', maxWidth: '1200px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ fontSize: '24px', fontWeight: 'bold' }}>Coach Dashboard</div>
+        <div style={{ padding: '20px', backgroundColor: '#f0f0f0', minHeight: '100vh', fontFamily: 'Arial, sans-serif' }}>
+            <header style={{ backgroundColor: '#2c3e50', color: '#fff', padding: '15px 0' }}>
+                <div style={{ width: '90%', margin: '0 auto', maxWidth: '1200px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ fontSize: '26px', fontWeight: 'bold' }}>Coach Dashboard</div>
                     <nav>
                         <ul style={{ listStyle: 'none', display: 'flex', margin: 0, padding: 0 }}>
                             <li style={{ marginLeft: '20px' }}>
-                                <Link to="/coach-login-home" style={{ color: '#fff', textDecoration: 'none' }}>Home</Link>
+                                <Link to="/coach-login-home" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Home</Link>
                             </li>
                             <li style={{ marginLeft: '20px' }}>
-                                <Link to="/addstudents" style={{ color: '#fff', textDecoration: 'none' }}>Add Students</Link>
+                                <Link to="/addstudents" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Add Students</Link>
                             </li>
                             <li style={{ marginLeft: '20px' }}>
-                                <Link to="/viewstudents" style={{ color: '#fff', textDecoration: 'none' }}>View Students</Link>
+                                <Link to="/viewstudents" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>View Students</Link>
                             </li>
                             <li style={{ marginLeft: '20px' }}>
-                                <Link to="/markattendance" style={{ color: '#fff', textDecoration: 'none' }}>Mark Attendance</Link>
+                                <Link to="/markattendance" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Mark Attendance</Link>
                             </li>
                             <li style={{ marginLeft: '20px' }}>
                                 <Link to="/markfees" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Mark Fees</Link>
                             </li>
-                            <li style={{ marginLeft: '20px', marginRight: '0' }}>
-                                <Link to="/" style={{ color: '#fff', textDecoration: 'none' }}>Logout</Link>
+                            <li style={{ marginLeft: '20px' }}>
+                                <Link to="/" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Logout</Link>
                             </li>
                         </ul>
                     </nav>

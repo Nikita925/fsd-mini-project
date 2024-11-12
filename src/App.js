@@ -17,7 +17,7 @@ import AllSportsImage from './allsports.png'; // Adjust the path relative to the
 import Wowsports from './wowsports.png';
 import Addstudents from './addstudents';
 import Viewstudents from './viewstudents';
-import Markattendence from './markattendence';
+import Markattendance from './markattendance';
 import Markfees from './markfees';
 
 import './App.css'; // Import the CSS file for animations
@@ -111,7 +111,7 @@ function App() {
                         <Route path="/cancellation-policy" element={<Cancellationpolicy />} />
                         <Route path="/addstudents" element={<Addstudents />} />
                         <Route path="/viewstudents" element={<Viewstudents />} />
-                        <Route path="/markattendence" element={<Markattendence />} />
+                        <Route path="/markattendance" element={<Markattendance />} />
                         <Route path="/markfees" element={<Markfees />} />
                         
                         <Route
