@@ -16,7 +16,9 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 // Connect to SQLite database
-const db = new sqlite3.Database('C:/Users/shrav/firstapp/backend/wow_sports_fitness.db', (err) => {
+const db = new sqlite3.Database('var/www/html/firstapp/backend/wow_sports_fitness.db', (err) =>
+    
+     {
     if (err) {
         console.error('Error connecting to SQLite database:', err.message);
         process.exit(1);
