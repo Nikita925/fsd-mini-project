@@ -1,25 +1,33 @@
-// src/components/MarkAttendance.js
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const MarkAttendance = () => {
+    const [students, setStudents] = useState([]);
     const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
     const [attendanceDate, setAttendanceDate] = useState('');
     const [attendance, setAttendance] = useState({});
-    
-    // Predefined student data
-    const [students] = useState([
-        { name: 'Anshuman Joshi', phone: '123-456-7890', email: 'anshuman@example.com', gender: 'Male', experience: 'Beginner', batch: 'Morning', timeSlot: '9:00 AM - 10:00 AM' },
-        { name: 'Nikita Kumari', phone: '234-567-8901', email: 'nikita@example.com', gender: 'Female', experience: 'Intermediate', batch: 'Evening', timeSlot: '5:00 PM - 6:00 PM' },
-        { name: 'Ridham Sarodiya', phone: '345-678-9012', email: 'ridham@example.com', gender: 'Male', experience: 'Advanced', batch: 'Morning', timeSlot: '9:00 AM - 10:00 AM' },
-        { name: 'Shravan Jhaveri', phone: '456-789-0123', email: 'shravan@example.com', gender: 'Male', experience: 'Beginner', batch: 'Evening', timeSlot: '5:00 PM - 6:00 PM' },
-    ]);
+    const [timeSlots, setTimeSlots] = useState([]);
+
+    useEffect(() => {
+        // Fetch students from API
+        fetch('http://localhost:5000/api/applications/students')
+            .then(response => response.json())
+            .then(data => {
+                setStudents(data);
+
+                // Get all unique time slots from students data
+                if (data && data.length > 0) {
+                    const slots = [...new Set(data.map(student => student.time_slot))];
+                    setTimeSlots(slots);
+                }
+            })
+            .catch(error => console.error('Error fetching students:', error));
+    }, []);
 
     // Filter students based on selected time slot
-    const filteredStudents = students.filter(student => 
-        selectedTimeSlot === '' || student.timeSlot === selectedTimeSlot
-    );
+    const filteredStudents = selectedTimeSlot
+        ? students.filter(student => student.time_slot === selectedTimeSlot)
+        : students;
 
     const handleAttendanceToggle = (name) => {
         setAttendance(prev => ({
@@ -28,10 +36,39 @@ const MarkAttendance = () => {
         }));
     };
 
-    const handleSaveAttendance = () => {
-        // Here you can handle the save logic
-        console.log('Attendance saved:', attendance);
-        alert('Attendance saved successfully!');
+    const handleSaveAttendance = async () => {
+        if (!attendanceDate || !selectedTimeSlot) {
+            alert('Please select both date and time slot');
+            return;
+        }
+
+        // Prepare attendance data for sending to the server
+        const attendanceData = Object.keys(attendance).map(studentName => ({
+            student_name: studentName,
+            attendance_status: attendance[studentName],
+            attendance_date: attendanceDate,
+            time_slot: selectedTimeSlot
+        }));
+
+        try {
+            // Send attendance data to server
+            const response = await fetch('http://localhost:5000/api/applications/attendance', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ attendance, attendanceDate, selectedTimeSlot })
+            });
+
+            if (response.ok) {
+                alert('Attendance saved successfully!');
+            } else {
+                alert('Error saving attendance');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error saving attendance');
+        }
     };
 
     return (
@@ -41,24 +78,12 @@ const MarkAttendance = () => {
                     <div style={{ fontSize: '26px', fontWeight: 'bold' }}>Coach Dashboard</div>
                     <nav>
                         <ul style={{ listStyle: 'none', display: 'flex', margin: 0, padding: 0 }}>
-                            <li style={{ marginLeft: '20px' }}>
-                                <Link to="/coach-login-home" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Home</Link>
-                            </li>
-                            <li style={{ marginLeft: '20px' }}>
-                                <Link to="/addstudents" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Add Students</Link>
-                            </li>
-                            <li style={{ marginLeft: '20px' }}>
-                                <Link to="/viewstudents" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>View Students</Link>
-                            </li>
-                            <li style={{ marginLeft: '20px' }}>
-                                <Link to="/markattendance" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Mark Attendance</Link>
-                            </li>
-                            <li style={{ marginLeft: '20px' }}>
-                                <Link to="/markfees" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Mark Fees</Link>
-                            </li>
-                            <li style={{ marginLeft: '20px' }}>
-                                <Link to="/" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Logout</Link>
-                            </li>
+                            <li style={{ marginLeft: '20px' }}><Link to="/coach-login-home" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Home</Link></li>
+                            <li style={{ marginLeft: '20px' }}><Link to="/addstudents" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Add Students</Link></li>
+                            <li style={{ marginLeft: '20px' }}><Link to="/viewstudents" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>View Students</Link></li>
+                            <li style={{ marginLeft: '20px' }}><Link to="/markattendance" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Mark Attendance</Link></li>
+                            <li style={{ marginLeft: '20px' }}><Link to="/markfees" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Mark Fees</Link></li>
+                            <li style={{ marginLeft: '20px' }}><Link to="/" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Logout</Link></li>
                         </ul>
                     </nav>
                 </div>
@@ -71,9 +96,14 @@ const MarkAttendance = () => {
                     value={selectedTimeSlot} 
                     onChange={(e) => setSelectedTimeSlot(e.target.value)} 
                     style={{ marginLeft: '10px', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}>
-                    <option value="">All</option>
-                    <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
-                    <option value="5:00 PM - 6:00 PM">5:00 PM - 6:00 PM</option>
+                    <option value="">All Time Slots</option>
+                    {timeSlots.length > 0 ? (
+                        timeSlots.map((slot, index) => (
+                            <option key={index} value={slot}>{slot}</option>
+                        ))
+                    ) : (
+                        <option value="">Loading time slots...</option>
+                    )}
                 </select>
             </div>
             <div>
@@ -87,7 +117,7 @@ const MarkAttendance = () => {
             </div>
 
             <h3 style={{ marginTop: '20px' }}>Select Students for Attendance</h3>
-            {filteredStudents.length > 0 && (
+            {filteredStudents.length > 0 ? (
                 <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
                     <thead>
                         <tr style={{ backgroundColor: '#f4f4f4' }}>
@@ -110,7 +140,7 @@ const MarkAttendance = () => {
                                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.gender}</td>
                                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.experience}</td>
                                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.batch}</td>
-                                <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.timeSlot}</td>
+                                <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.time_slot}</td>
                                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>
                                     <label>
                                         <input 
@@ -125,11 +155,13 @@ const MarkAttendance = () => {
                         ))}
                     </tbody>
                 </table>
+            ) : (
+                <p>No students found for the selected time slot.</p>
             )}
 
             <button 
                 onClick={handleSaveAttendance} 
-                style={{ backgroundColor: '#007BFF', color: '#fff', padding: '10px 20px', border: 'none', borderRadius: '4px', cursor: 'pointer', marginTop: '10px' }}>
+                style={{ marginTop: '20px', padding: '10px 20px', backgroundColor: '#27ae60', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
                 Save Attendance
             </button>
         </div>

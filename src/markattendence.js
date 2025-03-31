@@ -1,25 +1,20 @@
-// src/components/MarkAttendance.js
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const MarkAttendance = () => {
-    const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
+    const [students, setStudents] = useState([]);
     const [attendanceDate, setAttendanceDate] = useState('');
     const [attendance, setAttendance] = useState({});
-    
-    // Predefined student data
-    const [students] = useState([
-        { name: 'Anshuman Joshi', phone: '123-456-7890', email: 'anshuman@example.com', gender: 'Male', experience: 'Beginner', batch: 'Morning', timeSlot: '9:00 AM - 10:00 AM' },
-        { name: 'Nikita Kumari', phone: '234-567-8901', email: 'nikita@example.com', gender: 'Female', experience: 'Intermediate', batch: 'Evening', timeSlot: '5:00 PM - 6:00 PM' },
-        { name: 'Ridham Sarodiya', phone: '345-678-9012', email: 'ridham@example.com', gender: 'Male', experience: 'Advanced', batch: 'Morning', timeSlot: '9:00 AM - 10:00 AM' },
-        { name: 'Shravan Jhaveri', phone: '456-789-0123', email: 'shravan@example.com', gender: 'Male', experience: 'Beginner', batch: 'Evening', timeSlot: '5:00 PM - 6:00 PM' },
-    ]);
 
-    // Filter students based on selected time slot
-    const filteredStudents = students.filter(student => 
-        selectedTimeSlot === '' || student.timeSlot === selectedTimeSlot
-    );
+    useEffect(() => {
+        // Fetch students from API
+        fetch('http://localhost:5000/api/applications/students')
+            .then(response => response.json())
+            .then(data => {
+                setStudents(data);
+            })
+            .catch(error => console.error('Error fetching students:', error));
+    }, []);
 
     const handleAttendanceToggle = (name) => {
         setAttendance(prev => ({
@@ -28,55 +23,59 @@ const MarkAttendance = () => {
         }));
     };
 
-    const handleSaveAttendance = () => {
-        // Here you can handle the save logic
-        console.log('Attendance saved:', attendance);
-        alert('Attendance saved successfully!');
+    const handleSaveAttendance = async () => {
+        if (!attendanceDate) {
+            alert('Please select a date');
+            return;
+        }
+
+        // Prepare attendance data for sending to the server
+        const attendanceData = Object.keys(attendance).map(studentName => ({
+            student_name: studentName,
+            attendance_status: attendance[studentName],
+            attendance_date: attendanceDate
+        }));
+
+        try {
+            // Send attendance data to server
+            const response = await fetch('/api/save-attendance', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ attendanceData }),
+            });
+
+            if (response.ok) {
+                alert('Attendance saved successfully!');
+            } else {
+                alert('Error saving attendance');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error saving attendance');
+        }
     };
 
     return (
-        <div style={{ padding: '20px', backgroundColor: '#f4f4f4', minHeight: '100vh' }}>
-            {/* Navigation */}
-            <header style={{ backgroundColor: '#333', color: '#fff', padding: '10px 0' }}>
-                <div style={{ width: '80%', margin: '0 auto', maxWidth: '1200px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ fontSize: '24px', fontWeight: 'bold' }}>Coach Dashboard</div>
+        <div style={{ padding: '20px', backgroundColor: '#f0f0f0', minHeight: '100vh', fontFamily: 'Arial, sans-serif' }}>
+            <header style={{ backgroundColor: '#2c3e50', color: '#fff', padding: '15px 0' }}>
+                <div style={{ width: '90%', margin: '0 auto', maxWidth: '1200px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ fontSize: '26px', fontWeight: 'bold' }}>Coach Dashboard</div>
                     <nav>
                         <ul style={{ listStyle: 'none', display: 'flex', margin: 0, padding: 0 }}>
-                            <li style={{ marginLeft: '20px' }}>
-                                <Link to="/coach-login-home" style={{ color: '#fff', textDecoration: 'none' }}>Home</Link>
-                            </li>
-                            <li style={{ marginLeft: '20px' }}>
-                                <Link to="/addstudents" style={{ color: '#fff', textDecoration: 'none' }}>Add Students</Link>
-                            </li>
-                            <li style={{ marginLeft: '20px' }}>
-                                <Link to="/viewstudents" style={{ color: '#fff', textDecoration: 'none' }}>View Students</Link>
-                            </li>
-                            <li style={{ marginLeft: '20px' }}>
-                                <Link to="/markattendence" style={{ color: '#fff', textDecoration: 'none' }}>Mark Attendance</Link>
-                            </li>
-                            <li style={{ marginLeft: '20px' }}>
-                                <Link to="/markfees" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Mark Fees</Link>
-                            </li>
-                            <li style={{ marginLeft: '20px', marginRight: '0' }}>
-                                <Link to="/" style={{ color: '#fff', textDecoration: 'none' }}>Logout</Link>
-                            </li>
+                            <li style={{ marginLeft: '20px' }}><Link to="/coach-login-home" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Home</Link></li>
+                            <li style={{ marginLeft: '20px' }}><Link to="/addstudents" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Add Students</Link></li>
+                            <li style={{ marginLeft: '20px' }}><Link to="/viewstudents" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>View Students</Link></li>
+                            <li style={{ marginLeft: '20px' }}><Link to="/markattendance" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Mark Attendance</Link></li>
+                            <li style={{ marginLeft: '20px' }}><Link to="/markfees" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Mark Fees</Link></li>
+                            <li style={{ marginLeft: '20px' }}><Link to="/" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>Logout</Link></li>
                         </ul>
                     </nav>
                 </div>
             </header>
 
             <h2>Mark Attendance</h2>
-            <div style={{ marginBottom: '10px' }}>
-                <label>Select Time Slot:</label>
-                <select 
-                    value={selectedTimeSlot} 
-                    onChange={(e) => setSelectedTimeSlot(e.target.value)} 
-                    style={{ marginLeft: '10px', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}>
-                    <option value="">All</option>
-                    <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
-                    <option value="5:00 PM - 6:00 PM">5:00 PM - 6:00 PM</option>
-                </select>
-            </div>
             <div>
                 <label>Attendance Date:</label>
                 <input
@@ -88,7 +87,7 @@ const MarkAttendance = () => {
             </div>
 
             <h3 style={{ marginTop: '20px' }}>Select Students for Attendance</h3>
-            {filteredStudents.length > 0 && (
+            {students.length > 0 ? (
                 <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
                     <thead>
                         <tr style={{ backgroundColor: '#f4f4f4' }}>
@@ -103,7 +102,7 @@ const MarkAttendance = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredStudents.map((student, index) => (
+                        {students.map((student, index) => (
                             <tr key={index}>
                                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.name}</td>
                                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.phone}</td>
@@ -111,7 +110,7 @@ const MarkAttendance = () => {
                                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.gender}</td>
                                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.experience}</td>
                                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.batch}</td>
-                                <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.timeSlot}</td>
+                                <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.time_slot}</td>
                                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>
                                     <label>
                                         <input 
@@ -126,11 +125,13 @@ const MarkAttendance = () => {
                         ))}
                     </tbody>
                 </table>
+            ) : (
+                <p>No students found.</p>
             )}
 
             <button 
                 onClick={handleSaveAttendance} 
-                style={{ backgroundColor: '#007BFF', color: '#fff', padding: '10px 20px', border: 'none', borderRadius: '4px', cursor: 'pointer', marginTop: '10px' }}>
+                style={{ marginTop: '20px', padding: '10px 20px', backgroundColor: '#27ae60', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
                 Save Attendance
             </button>
         </div>

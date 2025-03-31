@@ -8,10 +8,10 @@ function JoinCoaching() {
         name: '',
         email: '',
         phone: '',
-        gender: 'Male', // Added gender with default value
-        experience: 'Beginner',  // Default experience level
-        timeSlot: 'Morning',  // Default time slot
-        time: '6am-7am',  // Default time based on timeSlot
+        gender: 'Male', 
+        experience: 'Beginner', 
+        timeSlot: 'Morning',
+        time: '6am-7am',
         goals: ''
     });
 
@@ -230,13 +230,22 @@ function JoinCoaching() {
                         }
                     </select>
                 </label>
+                <label style={labelStyle}>
+                    Goals:
+                    <textarea
+                        name="goals"
+                        value={formData.goals}
+                        onChange={handleChange}
+                        style={inputStyle}
+                    />
+                </label>
                 <button
                     type="submit"
                     style={buttonStyle}
-                    onMouseOver={(e) => e.target.style.backgroundColor = buttonHoverStyle.backgroundColor}
-                    onMouseOut={(e) => e.target.style.backgroundColor = buttonStyle.backgroundColor}
+                    onMouseOver={e => e.target.style.backgroundColor = buttonHoverStyle.backgroundColor}
+                    onMouseOut={e => e.target.style.backgroundColor = buttonStyle.backgroundColor}
                 >
-                    Submit Application
+                    Apply Now
                 </button>
             </form>
         </section>

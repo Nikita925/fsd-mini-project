@@ -45,9 +45,15 @@ function BookForPlay() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Basic validation
+        if (!formData.name || !formData.email || !formData.phone || !formData.date || !formData.time) {
+            alert('Please fill all required fields.');
+            return;
+        }
     
         try {
-            const response = await fetch('http://localhost:5000/api/applications/create', {
+            const response = await fetch('http://localhost:5000/api/applications/bookforplay', { // Correct endpoint
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -1,60 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const ViewStudentsPage = () => {
   const [students, setStudents] = useState([]);
   const [selectedStudents, setSelectedStudents] = useState([]);
 
-  // Fetch students data from the backend
+  // Fetch students when the component mounts
   useEffect(() => {
-    axios.get('http://localhost:5000/api/students')  // Corrected URL
-      .then(response => {
-        setStudents(response.data);  // Set the students state with fetched data
+    fetch('http://localhost:5000/api/applications/students')
+      .then((response) => response.json())
+      .then((data) => {
+        setStudents(data); // Set the students data
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error fetching students:', error);
       });
   }, []);
 
-  // Handle checkbox selection
   const handleCheckboxChange = (index) => {
-    if (selectedStudents.includes(index)) {
-      setSelectedStudents(selectedStudents.filter(i => i !== index));
-    } else {
-      setSelectedStudents([...selectedStudents, index]);
-    }
+    setSelectedStudents((prevSelected) =>
+      prevSelected.includes(index)
+        ? prevSelected.filter((i) => i !== index)
+        : [...prevSelected, index]
+    );
   };
 
-  // Handle removing selected students
   const handleRemoveSelected = () => {
-    selectedStudents.forEach(index => {
-      const studentId = students[index]._id;  // Get the student ID
-      axios.delete(`http://localhost:5000/api/students/${studentId}`)
+    // Send a DELETE request for each selected student
+    selectedStudents.forEach((index) => {
+      const studentId = students[index].id;
+      fetch(`http://localhost:5000/api/applications/students/${studentId}`, {
+        method: 'DELETE',
+      })
         .then(() => {
-          alert(`${students[index].name} has been removed.`);
-          setStudents(students.filter((_, idx) => idx !== index));  // Update the list of students
+          // Remove the deleted student from the state
+          setStudents((prevStudents) =>
+            prevStudents.filter((_, i) => i !== index)
+          );
+          setSelectedStudents((prevSelected) =>
+            prevSelected.filter((i) => i !== index)
+          );
         })
-        .catch(error => {
-          console.error('Error removing student:', error);
+        .catch((error) => {
+          console.error('Error deleting student:', error);
         });
     });
-    setSelectedStudents([]); // Clear the selection
   };
 
-  // Handle dropping selected students for the month
   const handleDropSelectedForMonth = () => {
-    selectedStudents.forEach(index => {
-      const studentId = students[index]._id;  // Get the student ID
-      axios.put(`http://localhost:5000/api/students/drop/${studentId}`)
-        .then(() => {
-          alert(`${students[index].name} has been dropped for the month.`);
-        })
-        .catch(error => {
-          console.error('Error dropping student for the month:', error);
-        });
-    });
-    setSelectedStudents([]); // Clear the selection
+    // Implement drop selected for month functionality
+    alert('Drop Selected for Month functionality is not implemented yet.');
   };
 
   return (
@@ -87,12 +82,11 @@ const ViewStudentsPage = () => {
         </div>
       </header>
 
-      {/* Student List */}
-      <div style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0 0 10px rgba(0,0,0,0.1)', marginBottom: '20px' }}>
-        <h2>Current Students</h2>
-        <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '10px' }}>
+      <h1>View Students</h1>
+      <div>
+        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
-            <tr style={{ backgroundColor: '#f4f4f4' }}>
+            <tr>
               <th style={{ border: '1px solid #ddd', padding: '8px' }}>Select</th>
               <th style={{ border: '1px solid #ddd', padding: '8px' }}>Name</th>
               <th style={{ border: '1px solid #ddd', padding: '8px' }}>Phone</th>
@@ -105,12 +99,12 @@ const ViewStudentsPage = () => {
           </thead>
           <tbody>
             {students.map((student, index) => (
-              <tr key={index}>
+              <tr key={student.id}>
                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>
                   <input
                     type="checkbox"
-                    onChange={() => handleCheckboxChange(index)}
                     checked={selectedStudents.includes(index)}
+                    onChange={() => handleCheckboxChange(index)}
                   />
                 </td>
                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.name}</td>
@@ -119,35 +113,40 @@ const ViewStudentsPage = () => {
                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.gender}</td>
                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.experience}</td>
                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.batch}</td>
-                <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.timeSlot}</td>
+                <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.time_slot}</td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
+        
 
-      {/* Action Buttons */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
-        <button
-          style={{
-            backgroundColor: '#e74c3c', color: '#fff', padding: '10px 15px', border: 'none',
-            borderRadius: '5px', cursor: 'pointer'
-          }}
-          onClick={handleRemoveSelected}
-          disabled={selectedStudents.length === 0}
-        >
-          REMOVE STUDENT
-        </button>
-        <button
-          style={{
-            backgroundColor: '#2980b9', color: '#fff', padding: '10px 15px', border: 'none',
-            borderRadius: '5px', cursor: 'pointer'
-          }}
-          onClick={handleDropSelectedForMonth}
-          disabled={selectedStudents.length === 0}
-        >
-          DROP STUDENT FOR MONTH
-        </button>
+        <div>
+          <button
+            onClick={handleRemoveSelected}
+            style={{
+              marginRight: '20px',
+              padding: '10px 20px',
+              backgroundColor: '#e74c3c',
+              color: '#fff',
+              border: 'none',
+              cursor: 'pointer',
+            }}
+          >
+            Remove Selected
+          </button>
+          <button
+            onClick={handleDropSelectedForMonth}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#f39c12',
+              color: '#fff',
+              border: 'none',
+              cursor: 'pointer',
+            }}
+          >
+            Drop Selected for Month
+          </button>
+        </div>
       </div>
     </div>
   );
